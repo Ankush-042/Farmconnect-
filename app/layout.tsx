@@ -1,7 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+// Added Poppins for potential use
 import { Poppins } from "next/font/google"
+import { I18nextProvider } from "react-i18next"
+import i18n from "@/i18n" // Import the i18n configuration
 import "./globals.css"
 
 const inter = Inter({
@@ -9,6 +12,7 @@ const inter = Inter({
   display: "swap",
   variable: "--font-inter",
 })
+// Define Poppins font with necessary subsets and weights
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,6 +28,7 @@ export const metadata: Metadata = {
   generator: "v0.app",
 }
 
+// Root layout component that wraps the entire application
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} antialiased`}>
-      <body className="font-sans">{children}</body>
+      {/* Wrap the body content with I18nextProvider */}
+      <I18nextProvider i18n={i18n}>
+        <body className="font-sans">{children}</body>
+      </I18nextProvider>
     </html>
   )
 }
